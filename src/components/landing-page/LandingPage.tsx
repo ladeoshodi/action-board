@@ -4,7 +4,7 @@ import "../../styles/LandingPage.css";
 
 function LandingPage() {
   return (
-    <div className="body-content">
+    <div className="body-content landing-page">
       <figure className="logo-image">
         <img src={ActionBoardLogo} />
       </figure>
