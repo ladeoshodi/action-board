@@ -1,2 +1,2 @@
-# action-board
+# Action Board
 GA SEI: Project 4
