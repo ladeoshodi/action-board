@@ -8,14 +8,15 @@
 
 .logo-image {
   text-align: center;
-}
-
-.logo-image img {
-  height: 60vh;
+  background-image: url("../assets/action-board-1.png");
+  background-position: center;
+  background-size: cover;
+  height: 40vh;
+  width: 50%;
 }
 
 @media screen and (max-width: 768px) {
-  .logo-image img {
-    height: 40vh;
+  .logo-image {
+    height: 20vh;
   }
 }

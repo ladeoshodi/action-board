@@ -9,6 +9,7 @@ body {
   font-weight: 400;
   font-style: normal;
   min-height: 100vh;
+  background-color: #f0f8ff;
 }
 
 .body-content {
