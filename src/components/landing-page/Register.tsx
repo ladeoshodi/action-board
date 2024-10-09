@@ -58,7 +58,7 @@ function Register({ setShowLogin }: RegisterProps) {
     <section className="section">
       <p className="title has-text-grey-dark is-size-5">Register</p>
       <form
-        className="box"
+        className="box ps-form"
         onSubmit={(e) => {
           void handleRegistration(e);
         }}
