@@ -21,8 +21,7 @@ function LandingPage() {
 
   return (
     <div className="body-content landing-page">
-      <section className="logo-image">
-      </section>
+      <section className="logo-image"></section>
       <div className="">
         {showLogin ? (
           <Login setShowLogin={setShowLogin} />

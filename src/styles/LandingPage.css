@@ -8,10 +8,8 @@
 
 .logo-image {
   text-align: center;
-  background-image: url("../assets/action-board-1.png");
-  background-position: center;
-  background-size: cover;
-  height: 250px;
+  background: url("../assets/action-board-3.png") no-repeat center;
+  height: 125px;
   width: 100%;
 }
 
