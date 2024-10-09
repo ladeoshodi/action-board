@@ -2,7 +2,7 @@ import axios, { AxiosError } from "axios";
 import { ChangeEvent, FormEvent, useState } from "react";
 import { toast } from "bulma-toast";
 import { IRegisterApiResponse } from "../../interfaces/api";
-import { getAxiosErrorMessage } from "../../utils/utils";
+import { getAxiosErrorMessageOnRegistration } from "../../utils/utils";
 import { baseUrl } from "../../config";
 
 interface RegisterProps {
@@ -34,7 +34,7 @@ function Register({ setShowLogin }: RegisterProps) {
       setShowLogin(true);
     } catch (e: unknown) {
       if (e instanceof AxiosError) {
-        const message = getAxiosErrorMessage(e);
+        const message = getAxiosErrorMessageOnRegistration(e);
         toast({
           message: message,
           type: "is-danger",
