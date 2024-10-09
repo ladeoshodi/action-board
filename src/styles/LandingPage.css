@@ -11,12 +11,12 @@
   background-image: url("../assets/action-board-1.png");
   background-position: center;
   background-size: cover;
-  height: 40vh;
-  width: 50%;
+  height: 250px;
+  width: 100%;
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 500px) {
   .logo-image {
-    height: 20vh;
+    height: 100px;
   }
 }
