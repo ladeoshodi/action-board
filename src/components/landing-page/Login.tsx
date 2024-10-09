@@ -59,7 +59,7 @@ function Login({ setShowLogin }: LoginProps) {
   }
 
   return (
-    <section className="section ps-form">
+    <section className="section">
       <p className="title has-text-grey-dark is-size-5">Login</p>
       <form
         className="box"
