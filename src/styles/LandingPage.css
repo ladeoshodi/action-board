@@ -1,0 +1,13 @@
+.logo-image {
+  text-align: center;
+}
+
+.logo-image img {
+  height: 60vh;
+}
+
+@media screen and (max-width: 768px) {
+  .logo-image img {
+    height: 40vh;
+  }
+}
