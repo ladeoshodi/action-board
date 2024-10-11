@@ -77,6 +77,7 @@ function Task({ list_id }: { list_id: number }) {
           </div>
         );
       })}
+      <button className="button is-ghost">Add new task +</button>
     </>
   );
 }
