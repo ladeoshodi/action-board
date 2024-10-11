@@ -4,7 +4,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 import App from "./App.tsx";
 import LandingPage from "./components/landing-page/LandingPage.tsx";
-import Board from "./components/home/Board.tsx";
+import Board from "./components/board/Board.tsx";
 
 import "./index.css";
 

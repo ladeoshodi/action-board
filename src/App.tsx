@@ -52,7 +52,6 @@ function App() {
   return (
     <>
       <NavBar user={user} />
-
       <Outlet context={{ user, setIsUserRefresh }} />
     </>
   );
