@@ -5,3 +5,7 @@
 .task-card {
   border-radius: 0 !important;
 }
+
+.vert-add-list-button {
+  height: fit-content !important;
+}

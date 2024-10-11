@@ -5,7 +5,6 @@ function Board() {
     <section className="section">
       <div className="box">
         <p>Main Board</p>
-        <button className="button is-ghost">Add new list +</button>
       </div>
       <VertBoardView />
     </section>

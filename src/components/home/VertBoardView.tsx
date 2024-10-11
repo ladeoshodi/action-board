@@ -4,9 +4,9 @@ import { IOutletContext } from "../../interfaces/outletContext";
 import invariant from "tiny-invariant";
 import { draggable } from "@atlaskit/pragmatic-drag-and-drop/element/adapter";
 import { ITaskList } from "../../interfaces/tasklist";
-import Task from "./Task";
+import TaskList from "./TaskList";
 
-function TaskList({ list }: { list: ITaskList }) {
+function DragabbleTaskList({ list }: { list: ITaskList }) {
   const ref = useRef(null);
   const [dragging, setDragging] = useState<boolean>(false);
 
@@ -24,7 +24,7 @@ function TaskList({ list }: { list: ITaskList }) {
   return (
     <div className="box" style={dragging ? { opacity: 0.4 } : {}} ref={ref}>
       <h6 className="is-size-6 pb-3">{list.name}</h6>
-      <Task list_id={list.id} />
+      <TaskList list_id={list.id} />
     </div>
   );
 }
@@ -44,10 +44,13 @@ function VertBoardView() {
       {user?.lists.map((list) => {
         return (
           <div key={list.id}>
-            <TaskList list={list} />
+            <DragabbleTaskList list={list} />
           </div>
         );
       })}
+      <button className="button is-ghost vert-add-list-button">
+        Add new list +
+      </button>
     </div>
   );
 }
