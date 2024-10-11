@@ -2,11 +2,11 @@ import { useRef } from "react";
 import { useOutletContext } from "react-router-dom";
 import { IOutletContext } from "../../interfaces/outletContext";
 import DragabbleTaskList from "./DraggabbleTaskList";
-import TaskListForm from "./TaskListForm";
+import SubmitForm from "./SubmitForm";
 
 function Board() {
   const { user } = useOutletContext<IOutletContext>();
-  const newListFormRef = useRef<HTMLFormElement>(null);
+  const formRef = useRef<HTMLFormElement>(null);
 
   const gridStyle = {
     display: "grid",
@@ -15,7 +15,7 @@ function Board() {
   };
 
   function showForm() {
-    newListFormRef.current?.classList.toggle("hidden");
+    formRef.current?.classList.toggle("hidden");
   }
 
   return (
@@ -38,7 +38,7 @@ function Board() {
           >
             Add new list +
           </button>
-          <TaskListForm ref={newListFormRef} />
+          <SubmitForm ref={formRef} />
         </div>
       </div>
     </section>

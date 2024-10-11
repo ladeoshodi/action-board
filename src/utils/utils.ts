@@ -12,6 +12,7 @@ function getAxiosErrorMessage(error: unknown): string {
       data.last_name?.[0] ??
       data.password?.[0] ??
       data.name?.[0] ??
+      data.task_list?.[0] ??
       "An unknown error occurred"
     );
   }

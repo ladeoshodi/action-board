@@ -15,4 +15,5 @@ export interface IApiErrorResponse {
   last_name?: string[];
   password?: string[];
   name?: string[];
+  task_list?: string[];
 }

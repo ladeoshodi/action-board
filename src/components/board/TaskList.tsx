@@ -1,10 +1,12 @@
 import { useOutletContext } from "react-router-dom";
 import { IOutletContext } from "../../interfaces/outletContext";
 import Task from "./Task";
-import { MouseEvent } from "react";
+import { useRef } from "react";
+import SubmitForm from "./SubmitForm";
 
 function TaskList({ list_id }: { list_id: number }) {
   const { user } = useOutletContext<IOutletContext>();
+  const formRef = useRef<HTMLFormElement>(null);
 
   const tasks = user?.tasks
     .filter((task) => task.task_list.id === list_id)
@@ -21,15 +23,18 @@ function TaskList({ list_id }: { list_id: number }) {
       return 0;
     });
 
-  function addNewTask(e: MouseEvent) {
-    console.log(e.target);
+  function showForm() {
+    formRef.current?.classList.toggle("hidden");
   }
 
   return (
     <>
-      <button className="button is-ghost pb-3" onClick={addNewTask}>
+      <button className="button is-ghost pb-3" onClick={showForm}>
         Add new task +
       </button>
+      <div className="pb-4">
+        <SubmitForm ref={formRef} list_id={list_id} />
+      </div>
       {tasks?.map((task) => {
         return <Task key={task.id} task={task} />;
       })}
