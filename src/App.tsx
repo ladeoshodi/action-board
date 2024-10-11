@@ -49,7 +49,7 @@ function App() {
     <>
       <NavBar user={user} />
       <div className="body-content">
-        <Outlet />
+        <Outlet context={{ user }} />
       </div>
     </>
   );
