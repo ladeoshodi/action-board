@@ -9,9 +9,6 @@ export interface IRegisterApiResponse {
 
 export interface IApiErrorResponse {
   detail: string;
-}
-
-export interface IRegisterAPIErrorResponse {
   email?: string[];
   username?: string[];
   first_name?: string[];
