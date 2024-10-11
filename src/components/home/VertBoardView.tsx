@@ -1,10 +1,14 @@
-import { useEffect, useRef, useState } from "react";
+import { ChangeEvent, FormEvent, useEffect, useRef, useState } from "react";
 import { useOutletContext } from "react-router-dom";
 import { IOutletContext } from "../../interfaces/outletContext";
 import invariant from "tiny-invariant";
 import { draggable } from "@atlaskit/pragmatic-drag-and-drop/element/adapter";
 import { ITaskList } from "../../interfaces/tasklist";
 import TaskList from "./TaskList";
+import { baseUrl } from "../../config";
+import axios, { AxiosError } from "axios";
+import { toast } from "bulma-toast";
+import { getAxiosErrorMessage } from "../../utils/utils";
 
 function DragabbleTaskList({ list }: { list: ITaskList }) {
   const ref = useRef(null);
@@ -30,14 +34,62 @@ function DragabbleTaskList({ list }: { list: ITaskList }) {
 }
 
 function VertBoardView() {
-  const { user } = useOutletContext<IOutletContext>();
-  console.log(user);
+  const initialFormData = {
+    name: "",
+  };
+
+  const { user, setIsUserRefresh } = useOutletContext<IOutletContext>();
+  const newListFormRef = useRef<HTMLFormElement>(null);
+  const [formData, setFormData] = useState(initialFormData);
 
   const gridStyle = {
     display: "grid",
     gridTemplateColumns: `repeat(${(user?.lists.length ?? 0) + 1}, 1fr)`,
     gap: "10px",
   };
+
+  function showForm() {
+    newListFormRef.current?.classList.toggle("hidden");
+  }
+
+  function handleInputChange(e: ChangeEvent<HTMLInputElement>) {
+    const target = e.target;
+    const newFormData = {
+      ...formData,
+      [target.name]: target.value,
+      user: user?.id,
+    };
+    setFormData(newFormData);
+  }
+
+  async function handleSubmit(e: FormEvent) {
+    e.preventDefault();
+    try {
+      const token = localStorage.getItem("token");
+      const URL = `${baseUrl}/tasklists/`;
+      const response = await axios.post<ITaskList>(URL, formData, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      setIsUserRefresh(true);
+      setFormData(initialFormData);
+      toast({
+        message: `${response.data.name} created`,
+        type: "is-success",
+        dismissible: true,
+        pauseOnHover: true,
+      });
+    } catch (e) {
+      if (e instanceof AxiosError) {
+        const message = getAxiosErrorMessage(e);
+        toast({
+          message: message,
+          type: "is-danger",
+          dismissible: true,
+          pauseOnHover: true,
+        });
+      }
+    }
+  }
 
   return (
     <div className="board vert-board" style={gridStyle}>
@@ -48,9 +100,29 @@ function VertBoardView() {
           </div>
         );
       })}
-      <button className="button is-ghost vert-add-list-button">
-        Add new list +
-      </button>
+      <div>
+        <button
+          className="button is-ghost vert-add-list-button"
+          onClick={showForm}
+        >
+          Add new list +
+        </button>
+        <form onSubmit={handleSubmit} className="hidden" ref={newListFormRef}>
+          <div className="field">
+            <div className="control">
+              <input
+                id="name"
+                className="input"
+                type="text"
+                placeholder="Name"
+                name="name"
+                value={formData.name}
+                onChange={handleInputChange}
+              />
+            </div>
+          </div>
+        </form>
+      </div>
     </div>
   );
 }

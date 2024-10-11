@@ -1,6 +1,7 @@
 import { useOutletContext } from "react-router-dom";
 import { IOutletContext } from "../../interfaces/outletContext";
 import Task from "./Task";
+import { MouseEvent } from "react";
 
 function TaskList({ list_id }: { list_id: number }) {
   const { user } = useOutletContext<IOutletContext>();
@@ -20,9 +21,15 @@ function TaskList({ list_id }: { list_id: number }) {
       return 0;
     });
 
+  function addNewTask(e: MouseEvent) {
+    console.log(e.target);
+  }
+
   return (
     <>
-      <button className="button is-ghost pb-3">Add new task +</button>
+      <button className="button is-ghost pb-3" onClick={addNewTask}>
+        Add new task +
+      </button>
       {tasks?.map((task) => {
         return <Task key={task.id} task={task} />;
       })}

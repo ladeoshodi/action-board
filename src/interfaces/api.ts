@@ -14,4 +14,5 @@ export interface IApiErrorResponse {
   first_name?: string[];
   last_name?: string[];
   password?: string[];
+  name?: string[];
 }
