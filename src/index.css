@@ -12,11 +12,6 @@ body {
   background-color: #f0f8ff;
 }
 
-.body-content {
-  max-width: 1024px;
-  margin: 0 auto;
-}
-
 .hover-pointer {
   cursor: pointer;
 }

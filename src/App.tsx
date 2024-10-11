@@ -50,9 +50,8 @@ function App() {
   return (
     <>
       <NavBar user={user} />
-      <div className="body-content">
+      
         <Outlet context={{ user }} />
-      </div>
     </>
   );
 }

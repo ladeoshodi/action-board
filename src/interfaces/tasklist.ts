@@ -1,5 +1,5 @@
 export interface ITaskList {
-  id: string;
+  id: number;
   name: string;
   user: number
   created_at: string
