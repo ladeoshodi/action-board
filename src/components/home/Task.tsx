@@ -57,6 +57,7 @@ function Task({ list_id }: { list_id: number }) {
                     return (
                       <span key={tag.id} className="tag is-link">
                         {tag.name}
+                        <button className="delete is-small"></button>
                       </span>
                     );
                   })}
