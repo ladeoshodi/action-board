@@ -42,6 +42,35 @@ function Task({ task }: { task: ITask }) {
     }
   }
 
+  async function deleteTask() {
+    try {
+      const token = localStorage.getItem("token");
+      const URL = `${baseUrl}/tasks/${task.id}/`;
+
+      await axios.delete(URL, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+
+      setIsUserRefresh(true);
+      toast({
+        message: `Task deleted`,
+        type: "is-success",
+        dismissible: true,
+        pauseOnHover: true,
+      });
+    } catch (e) {
+      if (e instanceof AxiosError) {
+        const message = getAxiosErrorMessage(e);
+        toast({
+          message: message,
+          type: "is-danger",
+          dismissible: true,
+          pauseOnHover: true,
+        });
+      }
+    }
+  }
+
   return (
     <div className="card has-background-white-ter task-card">
       <div className="card-content">
@@ -93,7 +122,9 @@ function Task({ task }: { task: ITask }) {
           </>
         )}
         <a href="#" className="card-footer-item">
-          <div className="has-text-danger">Delete</div>
+          <div className="has-text-danger" onClick={deleteTask}>
+            Delete
+          </div>
         </a>
       </footer>
     </div>
