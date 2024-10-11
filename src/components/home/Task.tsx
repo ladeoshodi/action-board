@@ -64,12 +64,17 @@ function Task({ list_id }: { list_id: number }) {
               </div>
             </div>
             <footer className="card-footer">
-              <a href="#" className="card-footer-item">
-                <div className="has-text-success">Mark as done</div>
-              </a>
-              <a href="#" className="card-footer-item">
-                Edit
-              </a>
+              {!task.done && (
+                <>
+                  <a href="#" className="card-footer-item">
+                    <div className="has-text-success">Mark as done</div>
+                  </a>
+                  <a href="#" className="card-footer-item">
+                    Edit
+                  </a>
+                </>
+              )}
+
               <a href="#" className="card-footer-item">
                 <div className="has-text-danger">Delete</div>
               </a>
