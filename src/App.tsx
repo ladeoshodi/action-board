@@ -9,6 +9,8 @@ import { baseUrl } from "./config";
 
 import NavBar from "./components/home/NavBar";
 
+import "./styles/Home.css";
+
 function App() {
   const [user, setUser] = useState<IUser | null>(null);
   const navigate = useNavigate();

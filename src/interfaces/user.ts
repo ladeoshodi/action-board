@@ -1,3 +1,5 @@
+import { ITaskList } from "./tasklist";
+
 export interface IUser {
   _id: string;
   username: string;
@@ -7,4 +9,5 @@ export interface IUser {
   profile_img?: string;
   date_joined: string;
   updated_at: string;
+  lists: ITaskList[];
 }
