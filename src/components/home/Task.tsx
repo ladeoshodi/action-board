@@ -5,7 +5,7 @@ function Task({ list_id }: { list_id: number }) {
   const { user } = useOutletContext<IOutletContext>();
 
   const tasks = user?.tasks
-    .filter((task) => task.task_list === list_id)
+    .filter((task) => task.task_list.id === list_id)
     .sort((task1, task2) => {
       // sort by done status
       if (task1.done && !task2.done) return 1;
@@ -50,6 +50,17 @@ function Task({ list_id }: { list_id: number }) {
                       "en-GB"
                     )}`}
                 </h5>
+              </div>
+              <div className="content">
+                <div className="tags">
+                  {task.tags.map((tag) => {
+                    return (
+                      <span key={tag.id} className="tag is-link">
+                        {tag.name}
+                      </span>
+                    );
+                  })}
+                </div>
               </div>
             </div>
             <footer className="card-footer">
