@@ -4,14 +4,19 @@ import TaskCard from "./TaskCard";
 import { useRef, useState } from "react";
 import SubmitForm from "./SubmitForm";
 import DropArea from "./DropArea";
+import { baseUrl } from "../../config";
+import { ITaskList } from "../../interfaces/tasklist";
+import axios, { AxiosError } from "axios";
+import { toast } from "bulma-toast";
+import { getAxiosErrorMessage } from "../../utils/utils";
 
-function TaskList({ list_id }: { list_id: number }) {
-  const { user } = useOutletContext<IOutletContext>();
+function TaskList({ list }: { list: ITaskList }) {
+  const { user, setIsUserRefresh } = useOutletContext<IOutletContext>();
   const formRef = useRef<HTMLFormElement>(null);
   const [activeCard, setActiveCard] = useState<number | null>(null);
 
   const tasks = user?.tasks
-    .filter((task) => task.task_list.id === list_id)
+    .filter((task) => task.task_list.id === list.id)
     .sort((task1, task2) => {
       // sort by done status
       if (task1.done && !task2.done) return 1;
@@ -29,13 +34,52 @@ function TaskList({ list_id }: { list_id: number }) {
     formRef.current?.classList.toggle("hidden");
   }
 
+  async function handleDeleteList() {
+    try {
+      const token = localStorage.getItem("token");
+      const URL = `${baseUrl}/tasklists/${list.id}/`;
+      await axios.delete(URL, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      setIsUserRefresh(true);
+      toast({
+        message: `Task List deleted`,
+        type: "is-success",
+        dismissible: true,
+        pauseOnHover: true,
+      });
+    } catch (e) {
+      if (e instanceof AxiosError) {
+        const message = getAxiosErrorMessage(e);
+        toast({
+          message: message,
+          type: "is-danger",
+          dismissible: true,
+          pauseOnHover: true,
+        });
+      }
+    }
+  }
+
   return (
-    <>
+    <div className="box">
+      <nav className="level">
+        <div className="level-left">
+          <div className="level-item">
+            <h6 className="is-size-6">{list.name}</h6>
+          </div>
+        </div>
+        <div className="level-right">
+          <div className="level-item">
+            <button className="delete" onClick={handleDeleteList}></button>
+          </div>
+        </div>
+      </nav>
       <button className="button is-ghost pb-3" onClick={showForm}>
         Add new task +
       </button>
       <div className="pb-4">
-        <SubmitForm ref={formRef} list_id={list_id} />
+        <SubmitForm ref={formRef} list_id={list.id} />
       </div>
       <DropArea />
       {tasks?.map((task) => {
@@ -46,7 +90,7 @@ function TaskList({ list_id }: { list_id: number }) {
           </>
         );
       })}
-    </>
+    </div>
   );
 }
 

@@ -1,7 +1,7 @@
 import { useRef } from "react";
 import { useOutletContext } from "react-router-dom";
 import { IOutletContext } from "../../interfaces/outletContext";
-import DnDTaskList from "./DnDTaskList";
+import TaskList from "./TaskList";
 import SubmitForm from "./SubmitForm";
 
 function Board() {
@@ -27,7 +27,7 @@ function Board() {
         {user?.lists.map((list) => {
           return (
             <div key={list.id}>
-              <DnDTaskList list={list} />
+              <TaskList list={list} />
             </div>
           );
         })}
