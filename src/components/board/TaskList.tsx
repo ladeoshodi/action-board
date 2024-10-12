@@ -1,12 +1,14 @@
 import { useOutletContext } from "react-router-dom";
 import { IOutletContext } from "../../interfaces/outletContext";
-import Task from "./Task";
-import { useRef } from "react";
+import TaskCard from "./TaskCard";
+import { useRef, useState } from "react";
 import SubmitForm from "./SubmitForm";
+import DropArea from "./DropArea";
 
 function TaskList({ list_id }: { list_id: number }) {
   const { user } = useOutletContext<IOutletContext>();
   const formRef = useRef<HTMLFormElement>(null);
+  const [activeCard, setActiveCard] = useState<number | null>(null);
 
   const tasks = user?.tasks
     .filter((task) => task.task_list.id === list_id)
@@ -35,8 +37,14 @@ function TaskList({ list_id }: { list_id: number }) {
       <div className="pb-4">
         <SubmitForm ref={formRef} list_id={list_id} />
       </div>
+      <DropArea />
       {tasks?.map((task) => {
-        return <Task key={task.id} task={task} />;
+        return (
+          <>
+            <TaskCard key={task.id} task={task} setActiveCard={setActiveCard} />
+            <DropArea />
+          </>
+        );
       })}
     </>
   );

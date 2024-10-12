@@ -5,8 +5,14 @@ import axios, { AxiosError } from "axios";
 import { baseUrl } from "../../config";
 import { toast } from "bulma-toast";
 import { getAxiosErrorMessage } from "../../utils/utils";
+import { DragEvent } from "react";
 
-function Task({ task }: { task: ITask }) {
+interface TaskProps {
+  task: ITask;
+  setActiveCard: (arg: number | null) => void;
+}
+
+function TaskCard({ task, setActiveCard }: TaskProps) {
   const { setIsUserRefresh } = useOutletContext<IOutletContext>();
 
   async function markTaskAsDone() {
@@ -71,8 +77,25 @@ function Task({ task }: { task: ITask }) {
     }
   }
 
+  function dragStart(e: DragEvent<HTMLDivElement>) {
+    const target = e.target as HTMLElement;
+    target.style.opacity = "0.4";
+    setActiveCard(task.id);
+  }
+
+  function dragEnd(e: DragEvent<HTMLDivElement>) {
+    const target = e.target as HTMLElement;
+    target.style.opacity = "1";
+    setActiveCard(null);
+  }
+
   return (
-    <div className="card has-background-white-ter task-card">
+    <div
+      className="card has-background-white-ter task-card"
+      draggable
+      onDragStart={dragStart}
+      onDragEnd={dragEnd}
+    >
       <div className="card-content">
         <div className="content">
           <h5
@@ -99,7 +122,7 @@ function Task({ task }: { task: ITask }) {
           <div className="tags">
             {task.tags.map((tag) => {
               return (
-                <span key={tag.id} className="tag is-link">
+                <span key={tag.id} className="tag is-dark">
                   {tag.name}
                   <button className="delete is-small"></button>
                 </span>
@@ -131,4 +154,4 @@ function Task({ task }: { task: ITask }) {
   );
 }
 
-export default Task;
+export default TaskCard;

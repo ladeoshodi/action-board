@@ -12,21 +12,21 @@ import TaskList from "./TaskList";
 import { toast } from "bulma-toast";
 import { getAxiosErrorMessage } from "../../utils/utils";
 
-function DragabbleTaskList({ list }: { list: ITaskList }) {
+function DnDTaskList({ list }: { list: ITaskList }) {
   const { setIsUserRefresh } = useOutletContext<IOutletContext>();
   const ref = useRef(null);
   const [dragging, setDragging] = useState<boolean>(false);
 
-  useEffect(() => {
-    const el = ref.current;
-    invariant(el);
+  // useEffect(() => {
+  //   const el = ref.current;
+  //   invariant(el);
 
-    return draggable({
-      element: el,
-      onDragStart: () => setDragging(true),
-      onDrop: () => setDragging(false),
-    });
-  }, []);
+  //   return draggable({
+  //     element: el,
+  //     onDragStart: () => setDragging(true),
+  //     onDrop: () => setDragging(false),
+  //   });
+  // }, []);
 
   async function handleDeleteList() {
     try {
@@ -56,7 +56,7 @@ function DragabbleTaskList({ list }: { list: ITaskList }) {
   }
 
   return (
-    <div className="box" style={dragging ? { opacity: 0.4 } : {}} ref={ref}>
+    <div className="box" style={dragging ? { opacity: 0.4 } : {}}>
       <nav className="level">
         <div className="level-left">
           <div className="level-item">
@@ -75,4 +75,4 @@ function DragabbleTaskList({ list }: { list: ITaskList }) {
   );
 }
 
-export default DragabbleTaskList;
+export default DnDTaskList;
