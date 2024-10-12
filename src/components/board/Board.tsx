@@ -23,6 +23,15 @@ function Board() {
     <section className="section">
       <div className="box">
         <p>Main Board</p>
+        <div>
+          <button
+            className="button is-ghost vert-add-list-button"
+            onClick={showForm}
+          >
+            Add new list +
+          </button>
+          <SubmitForm ref={formRef} />
+        </div>
       </div>
       <div className="board vert-board" style={gridStyle}>
         {user?.lists.map((list) => {
@@ -36,15 +45,6 @@ function Board() {
             </div>
           );
         })}
-        <div>
-          <button
-            className="button is-ghost vert-add-list-button"
-            onClick={showForm}
-          >
-            Add new list +
-          </button>
-          <SubmitForm ref={formRef} />
-        </div>
       </div>
     </section>
   );
