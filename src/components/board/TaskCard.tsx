@@ -134,9 +134,8 @@ function TaskCard({ task, setActiveCard }: TaskProps) {
           <div className="tags">
             {task.tags.map((tag) => {
               return (
-                <span key={tag.id} className="tag is-dark">
+                <span key={tag.id} className="tag is-darker">
                   {tag.name}
-                  <button className="delete is-small"></button>
                 </span>
               );
             })}
