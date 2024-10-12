@@ -1,6 +1,10 @@
 import { useState } from "react";
 
-function DropArea() {
+interface DropAreaProp {
+  onDrop: () => void;
+}
+
+function DropArea({ onDrop }: DropAreaProp) {
   const [showDrop, setShowDrop] = useState(false);
 
   function dragEnter() {
@@ -15,6 +19,11 @@ function DropArea() {
     <section
       onDragEnter={dragEnter}
       onDragLeave={dragLeave}
+      onDrop={() => {
+        onDrop();
+        setShowDrop(false);
+      }}
+      onDragOver={(e) => e.preventDefault()}
       className={showDrop ? "section drop-area mb-3" : "hide-drop"}
     >
       Drop Here

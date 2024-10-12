@@ -1,7 +1,7 @@
 import { useOutletContext } from "react-router-dom";
 import { IOutletContext } from "../../interfaces/outletContext";
 import TaskCard from "./TaskCard";
-import { useRef, useState } from "react";
+import { useRef } from "react";
 import SubmitForm from "./SubmitForm";
 import DropArea from "./DropArea";
 import { baseUrl } from "../../config";
@@ -9,11 +9,17 @@ import { ITaskList } from "../../interfaces/tasklist";
 import axios, { AxiosError } from "axios";
 import { toast } from "bulma-toast";
 import { getAxiosErrorMessage } from "../../utils/utils";
+import { ITask } from "../../interfaces/task";
 
-function TaskList({ list }: { list: ITaskList }) {
+interface TaskListProp {
+  list: ITaskList;
+  activeCard: number | null;
+  setActiveCard: (arg: number | null) => void;
+}
+
+function TaskList({ list, activeCard, setActiveCard }: TaskListProp) {
   const { user, setIsUserRefresh } = useOutletContext<IOutletContext>();
   const formRef = useRef<HTMLFormElement>(null);
-  const [activeCard, setActiveCard] = useState<number | null>(null);
 
   const tasks = user?.tasks
     .filter((task) => task.task_list.id === list.id)
@@ -61,6 +67,44 @@ function TaskList({ list }: { list: ITaskList }) {
     }
   }
 
+  async function moveTask(activeCard: number, tasklist: number) {
+    try {
+      const token = localStorage.getItem("token");
+      const URL = `${baseUrl}/tasks/${activeCard}/`;
+
+      const response = await axios.put<ITask>(
+        URL,
+        { task_list: tasklist },
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
+
+      setIsUserRefresh(true);
+      toast({
+        message: `${response.data.name} moved successfully`,
+        type: "is-success",
+        dismissible: true,
+        pauseOnHover: true,
+      });
+    } catch (e) {
+      if (e instanceof AxiosError) {
+        const message = getAxiosErrorMessage(e);
+        toast({
+          message: message,
+          type: "is-danger",
+          dismissible: true,
+          pauseOnHover: true,
+        });
+      }
+    }
+  }
+
+  function onDrop(taskList: number) {
+    if (activeCard === null || activeCard === undefined) return;
+    moveTask(activeCard, taskList);
+  }
+
   return (
     <div className="box">
       <nav className="level">
@@ -81,13 +125,13 @@ function TaskList({ list }: { list: ITaskList }) {
       <div className="pb-4">
         <SubmitForm ref={formRef} list_id={list.id} />
       </div>
-      <DropArea />
+      <DropArea onDrop={() => onDrop(list.id)} />
       {tasks?.map((task) => {
         return (
-          <>
-            <TaskCard key={task.id} task={task} setActiveCard={setActiveCard} />
-            <DropArea />
-          </>
+          <div key={task.id}>
+            <TaskCard task={task} setActiveCard={setActiveCard} />
+            <DropArea onDrop={() => onDrop(list.id)} />
+          </div>
         );
       })}
     </div>

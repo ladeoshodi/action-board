@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { useOutletContext } from "react-router-dom";
 import { IOutletContext } from "../../interfaces/outletContext";
 import TaskList from "./TaskList";
@@ -7,6 +7,7 @@ import SubmitForm from "./SubmitForm";
 function Board() {
   const { user } = useOutletContext<IOutletContext>();
   const formRef = useRef<HTMLFormElement>(null);
+  const [activeCard, setActiveCard] = useState<number | null>(null);
 
   const gridStyle = {
     display: "grid",
@@ -27,7 +28,11 @@ function Board() {
         {user?.lists.map((list) => {
           return (
             <div key={list.id}>
-              <TaskList list={list} />
+              <TaskList
+                list={list}
+                activeCard={activeCard}
+                setActiveCard={setActiveCard}
+              />
             </div>
           );
         })}

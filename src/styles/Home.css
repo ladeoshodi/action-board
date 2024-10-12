@@ -3,7 +3,7 @@
 }
 
 .task-card {
-  border-radius: 0 !important;
+  /* border-radius: 0 !important; */
   cursor: grab;
 }
 
