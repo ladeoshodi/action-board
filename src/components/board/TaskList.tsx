@@ -107,7 +107,7 @@ function TaskList({ list, activeCard, setActiveCard }: TaskListProp) {
 
   return (
     <div className="box">
-      <nav className="level">
+      <nav className="level mb-1">
         <div className="level-left">
           <div className="level-item">
             <h6 className="is-size-6">{list.name}</h6>
@@ -119,18 +119,17 @@ function TaskList({ list, activeCard, setActiveCard }: TaskListProp) {
           </div>
         </div>
       </nav>
+      <DropArea onDrop={() => onDrop(list.id)} />
       <button className="button is-ghost pb-3" onClick={showForm}>
         Add new task +
       </button>
       <div className="pb-4">
         <SubmitForm ref={formRef} list_id={list.id} />
       </div>
-      <DropArea onDrop={() => onDrop(list.id)} />
       {tasks?.map((task) => {
         return (
           <div key={task.id}>
             <TaskCard task={task} setActiveCard={setActiveCard} />
-            <DropArea onDrop={() => onDrop(list.id)} />
           </div>
         );
       })}

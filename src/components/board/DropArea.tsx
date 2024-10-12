@@ -26,7 +26,7 @@ function DropArea({ onDrop }: DropAreaProp) {
       onDragOver={(e) => e.preventDefault()}
       className={showDrop ? "section drop-area mb-3" : "hide-drop"}
     >
-      Drop Here
+      Move Task Here
     </section>
   );
 }

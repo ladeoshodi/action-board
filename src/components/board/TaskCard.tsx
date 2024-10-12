@@ -89,12 +89,24 @@ function TaskCard({ task, setActiveCard }: TaskProps) {
     setActiveCard(null);
   }
 
+  function handleDrag(e: DragEvent<HTMLDivElement>) {
+    const scrollThreshold = 50;
+    const scrollSpeed = 10;
+
+    if (e.clientY < scrollThreshold) {
+      window.scrollBy(0, -scrollSpeed);
+    } else if (window.innerHeight - e.clientY < scrollThreshold) {
+      window.scrollBy(0, scrollSpeed);
+    }
+  }
+
   return (
     <div
-      className="card task-card"
+      className="card task-card mb-5"
       draggable
       onDragStart={dragStart}
       onDragEnd={dragEnd}
+      onDrag={handleDrag}
     >
       <div className="card-content">
         <div className="content">
