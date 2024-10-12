@@ -3,7 +3,7 @@
 }
 
 .task-card {
-  /* border-radius: 0 !important; */
+  border-radius: 0 !important;
   cursor: grab;
 }
 
@@ -23,4 +23,16 @@
 
 .hide-drop {
   opacity: 0;
+}
+
+@media (prefers-color-scheme: light) {
+  .task-card {
+    background-color: #f8f7ff !important;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  .task-card {
+    background-color: #2e333d !important;
+  }
 }

@@ -91,7 +91,7 @@ function TaskCard({ task, setActiveCard }: TaskProps) {
 
   return (
     <div
-      className="card has-background-white-ter task-card"
+      className="card task-card"
       draggable
       onDragStart={dragStart}
       onDragEnd={dragEnd}
