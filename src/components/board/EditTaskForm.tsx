@@ -11,17 +11,31 @@ interface EditTaskFormProp {
   closeEditForm: () => void;
   task: ITask;
 }
+
+interface IinitialFormData {
+  name: string;
+  description: string;
+  due_date?: string;
+}
+
 const EditTaskForm = forwardRef<HTMLDivElement, EditTaskFormProp>(
   function EditTaskForm({ closeEditForm, task }, ref) {
-    const { user, setIsUserRefresh } = useOutletContext<IOutletContext>();
+    const { setIsUserRefresh } = useOutletContext<IOutletContext>();
 
-    const currentTask = user?.tasks.find(
-      (currentTask) => currentTask.id === task.id
-    );
+    const formatDate = (dateString: string): string => {
+      const date = new Date(dateString);
+      const year = date.getFullYear();
+      const month = String(date.getMonth() + 1).padStart(2, "0");
+      const day = String(date.getDate()).padStart(2, "0");
+      const hours = String(date.getHours()).padStart(2, "0");
+      const minutes = String(date.getMinutes()).padStart(2, "0");
+      return `${year}-${month}-${day}T${hours}:${minutes}`;
+    };
 
-    const initialFormData = {
-      name: currentTask?.name,
-      description: currentTask?.description || "",
+    const initialFormData: IinitialFormData = {
+      name: task.name,
+      description: task.description || "",
+      due_date: task.due_date ? formatDate(task.due_date) : "",
     };
 
     const [formData, setFormData] = useState(initialFormData);
@@ -29,10 +43,13 @@ const EditTaskForm = forwardRef<HTMLDivElement, EditTaskFormProp>(
     async function updateTask(e: FormEvent) {
       e.preventDefault();
       try {
+        const updatedFormData = { ...formData };
+        if (!updatedFormData.due_date) {
+          delete updatedFormData.due_date;
+        }
         const token = localStorage.getItem("token");
-
         const URL = `${baseUrl}/tasks/${task.id}/`;
-        await axios.put<ITask>(URL, formData, {
+        await axios.put<ITask>(URL, updatedFormData, {
           headers: { Authorization: `Bearer ${token}` },
         });
 
@@ -57,7 +74,9 @@ const EditTaskForm = forwardRef<HTMLDivElement, EditTaskFormProp>(
       }
     }
 
-    function handleInputChange(e: ChangeEvent<HTMLInputElement>) {
+    function handleInputChange(
+      e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    ) {
       const target = e.target;
       const newFormData = {
         ...formData,
@@ -89,7 +108,7 @@ const EditTaskForm = forwardRef<HTMLDivElement, EditTaskFormProp>(
                       id="name"
                       className="input"
                       type="text"
-                      placeholder="Enter Task Name"
+                      placeholder="Update Task Name"
                       name="name"
                       value={formData.name}
                       onChange={handleInputChange}
@@ -105,13 +124,31 @@ const EditTaskForm = forwardRef<HTMLDivElement, EditTaskFormProp>(
                     Update Task Description
                   </label>
                   <div className="control">
-                    <input
+                    <textarea
                       id="description"
-                      className="input"
-                      type="text"
+                      className="textarea"
                       placeholder="Update Task Description"
                       name="description"
                       value={formData.description}
+                      onChange={handleInputChange}
+                    ></textarea>
+                  </div>
+                </div>
+                <div className="field">
+                  <label
+                    htmlFor="due_date"
+                    className="label has-text-grey-dark"
+                  >
+                    Update Due Date
+                  </label>
+                  <div className="control">
+                    <input
+                      id="due_date"
+                      className="input"
+                      type="datetime-local"
+                      placeholder="Update Task Description"
+                      name="due_date"
+                      value={formData.due_date}
                       onChange={handleInputChange}
                     />
                   </div>
@@ -120,7 +157,14 @@ const EditTaskForm = forwardRef<HTMLDivElement, EditTaskFormProp>(
               <footer className="modal-card-foot">
                 <div className="buttons">
                   <button className="button is-success">Save changes</button>
-                  <button className="button" onClick={closeEditForm}>
+                  <button
+                    className="button"
+                    type="button"
+                    onClick={() => {
+                      closeEditForm();
+                      setFormData(initialFormData);
+                    }}
+                  >
                     Cancel
                   </button>
                 </div>
