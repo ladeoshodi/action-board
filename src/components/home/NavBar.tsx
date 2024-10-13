@@ -2,8 +2,6 @@ import { MouseEvent, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { IUser } from "../../interfaces/user";
 
-import actionBoardLogo from "../../assets/action-board-4.svg";
-
 interface NavBarProps {
   user: IUser | null;
 }
@@ -31,9 +29,6 @@ function NavBar({ user }: NavBarProps) {
       aria-label="main navigation"
     >
       <div className="navbar-brand">
-        <Link className="navbar-item" to="/home">
-          <img src={actionBoardLogo} alt="" />
-        </Link>
         <a
           role="button"
           className="navbar-burger"
@@ -53,10 +48,6 @@ function NavBar({ user }: NavBarProps) {
           <div className="navbar-item has-dropdown is-hoverable">
             <a className="navbar-link">Welcome {user?.username}</a>
             <div className="navbar-dropdown">
-              <Link to="/profile" className="navbar-item">
-                Profile
-              </Link>
-              <hr className="navbar-divider" />
               <Link to="#" className="navbar-item" onClick={handleLogOut}>
                 Logout
               </Link>
