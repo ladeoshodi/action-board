@@ -5,7 +5,8 @@ import axios, { AxiosError } from "axios";
 import { baseUrl } from "../../config";
 import { toast } from "bulma-toast";
 import { getAxiosErrorMessage } from "../../utils/utils";
-import { DragEvent } from "react";
+import { DragEvent, useRef } from "react";
+import EditTaskForm from "./EditTaskForm";
 
 interface TaskProps {
   task: ITask;
@@ -14,6 +15,7 @@ interface TaskProps {
 
 function TaskCard({ task, setActiveCard }: TaskProps) {
   const { setIsUserRefresh } = useOutletContext<IOutletContext>();
+  const editTaskFormRef = useRef<HTMLDivElement>(null);
 
   async function markTaskAsDone() {
     try {
@@ -100,6 +102,14 @@ function TaskCard({ task, setActiveCard }: TaskProps) {
     }
   }
 
+  function showEditForm() {
+    editTaskFormRef.current?.classList.add("is-active");
+  }
+
+  function closeEditForm() {
+    editTaskFormRef.current?.classList.remove("is-active");
+  }
+
   return (
     <div
       className="card task-card mb-5"
@@ -150,9 +160,10 @@ function TaskCard({ task, setActiveCard }: TaskProps) {
                 Mark as done
               </div>
             </a>
-            <a href="#" className="card-footer-item">
+            <a href="#" className="card-footer-item" onClick={showEditForm}>
               Edit
             </a>
+            <EditTaskForm ref={editTaskFormRef} closeEditForm={closeEditForm} />
           </>
         )}
         <a href="#" className="card-footer-item">
