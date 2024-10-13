@@ -163,7 +163,11 @@ function TaskCard({ task, setActiveCard }: TaskProps) {
             <a href="#" className="card-footer-item" onClick={showEditForm}>
               Edit
             </a>
-            <EditTaskForm ref={editTaskFormRef} closeEditForm={closeEditForm} />
+            <EditTaskForm
+              ref={editTaskFormRef}
+              closeEditForm={closeEditForm}
+              task={task}
+            />
           </>
         )}
         <a href="#" className="card-footer-item">
