@@ -111,72 +111,74 @@ function TaskCard({ task, setActiveCard }: TaskProps) {
   }
 
   return (
-    <div
-      className="card task-card mb-5"
-      draggable
-      onDragStart={dragStart}
-      onDragEnd={dragEnd}
-      onDrag={handleDrag}
-    >
-      <div className="card-content">
-        <div className="content">
-          <h5
-            className="is-size-6"
-            style={{
-              textDecoration: task.done ? "line-through" : "none",
-            }}
-          >
-            {task.name}
-          </h5>
-        </div>
-        <div className="content">
-          <h5 className="is-size-7 has-text-weight-medium">
-            {task.description}
-          </h5>
-        </div>
-        <div className="content">
-          <h5 className="is-size-7 has-text-danger has-text-weight-light">
-            {task.due_date &&
-              `Due Date: ${new Date(task.due_date).toLocaleString("en-GB")}`}
-          </h5>
-        </div>
-        <div className="content">
-          <div className="tags">
-            {task.tags.map((tag) => {
-              return (
-                <span key={tag.id} className="tag is-darker">
-                  {tag.name}
-                </span>
-              );
-            })}
+    <>
+      <div
+        className="card task-card mb-5"
+        draggable
+        onDragStart={dragStart}
+        onDragEnd={dragEnd}
+        onDrag={handleDrag}
+      >
+        <div className="card-content">
+          <div className="content">
+            <h5
+              className="is-size-6"
+              style={{
+                textDecoration: task.done ? "line-through" : "none",
+              }}
+            >
+              {task.name}
+            </h5>
+          </div>
+          <div className="content">
+            <h5 className="is-size-7 has-text-weight-medium">
+              {task.description}
+            </h5>
+          </div>
+          <div className="content">
+            <h5 className="is-size-7 has-text-danger has-text-weight-light">
+              {task.due_date &&
+                `Due Date: ${new Date(task.due_date).toLocaleString("en-GB")}`}
+            </h5>
+          </div>
+          <div className="content">
+            <div className="tags">
+              {task.tags.map((tag) => {
+                return (
+                  <span key={tag.id} className="tag is-darker">
+                    {tag.name}
+                  </span>
+                );
+              })}
+            </div>
           </div>
         </div>
+        <footer className="card-footer">
+          {!task.done && (
+            <>
+              <a href="#" className="card-footer-item">
+                <div className="has-text-success" onClick={markTaskAsDone}>
+                  Mark as done
+                </div>
+              </a>
+              <a href="#" className="card-footer-item" onClick={showEditForm}>
+                Edit
+              </a>
+            </>
+          )}
+          <a href="#" className="card-footer-item">
+            <div className="has-text-danger" onClick={deleteTask}>
+              Delete
+            </div>
+          </a>
+        </footer>
       </div>
-      <footer className="card-footer">
-        {!task.done && (
-          <>
-            <a href="#" className="card-footer-item">
-              <div className="has-text-success" onClick={markTaskAsDone}>
-                Mark as done
-              </div>
-            </a>
-            <a href="#" className="card-footer-item" onClick={showEditForm}>
-              Edit
-            </a>
-            <EditTaskForm
-              ref={editTaskFormRef}
-              closeEditForm={closeEditForm}
-              task={task}
-            />
-          </>
-        )}
-        <a href="#" className="card-footer-item">
-          <div className="has-text-danger" onClick={deleteTask}>
-            Delete
-          </div>
-        </a>
-      </footer>
-    </div>
+      <EditTaskForm
+        ref={editTaskFormRef}
+        closeEditForm={closeEditForm}
+        task={task}
+      />
+    </>
   );
 }
 

@@ -15,12 +15,13 @@ const EditTaskForm = forwardRef<HTMLDivElement, EditTaskFormProp>(
   function EditTaskForm({ closeEditForm, task }, ref) {
     const { user, setIsUserRefresh } = useOutletContext<IOutletContext>();
 
-    const currentTaskName = user?.tasks.find(
+    const currentTask = user?.tasks.find(
       (currentTask) => currentTask.id === task.id
     );
 
     const initialFormData = {
-      name: currentTaskName?.name,
+      name: currentTask?.name,
+      description: currentTask?.description || "",
     };
 
     const [formData, setFormData] = useState(initialFormData);
@@ -93,6 +94,25 @@ const EditTaskForm = forwardRef<HTMLDivElement, EditTaskFormProp>(
                       value={formData.name}
                       onChange={handleInputChange}
                       required
+                    />
+                  </div>
+                </div>
+                <div className="field">
+                  <label
+                    htmlFor="description"
+                    className="label has-text-grey-dark"
+                  >
+                    Update Task Description
+                  </label>
+                  <div className="control">
+                    <input
+                      id="description"
+                      className="input"
+                      type="text"
+                      placeholder="Update Task Description"
+                      name="description"
+                      value={formData.description}
+                      onChange={handleInputChange}
                     />
                   </div>
                 </div>
