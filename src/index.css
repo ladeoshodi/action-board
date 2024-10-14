@@ -12,6 +12,11 @@ body {
   background-color: #f0f8ff;
 }
 
+.body-center-content {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
 .hover-pointer {
   cursor: pointer;
 }

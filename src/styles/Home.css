@@ -25,6 +25,20 @@
   opacity: 0;
 }
 
+.tag-input {
+  border-top: 0 !important;
+  border-right: 0 !important;
+  border-left: 0 !important;
+  border-radius: 0 !important;
+  background-color: transparent !important;
+  box-shadow: none !important;
+}
+
+.tag-input::placeholder {
+  opacity: 0.3;
+  color: #2e333d !important;
+}
+
 @media (prefers-color-scheme: light) {
   .task-card {
     background-color: #f8f7ff !important;
