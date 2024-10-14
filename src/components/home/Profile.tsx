@@ -1,6 +1,6 @@
 import { useOutletContext } from "react-router-dom";
 import { IOutletContext } from "../../interfaces/outletContext";
-import { ChangeEvent, FormEvent, useState } from "react";
+import { ChangeEvent, FormEvent, MouseEvent, useState } from "react";
 import { baseUrl } from "../../config";
 import axios, { AxiosError } from "axios";
 import { ITag } from "../../interfaces/tag";
@@ -57,6 +57,37 @@ function Profile() {
     }
   }
 
+  async function deleteTag(e: MouseEvent<HTMLButtonElement>) {
+    const target = e.target as HTMLButtonElement;
+    const tag_id = target.dataset.tagId;
+    try {
+      const token = localStorage.getItem("token");
+
+      const URL = `${baseUrl}/tags/${tag_id}/`;
+      await axios.delete(URL, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+
+      setIsUserRefresh(true);
+      toast({
+        message: `Tag deleted`,
+        type: "is-success",
+        dismissible: true,
+        pauseOnHover: true,
+      });
+    } catch (e) {
+      if (e instanceof AxiosError) {
+        const message = getAxiosErrorMessage(e);
+        toast({
+          message: message,
+          type: "is-danger",
+          dismissible: true,
+          pauseOnHover: true,
+        });
+      }
+    }
+  }
+
   return (
     <div className="body-center-content">
       <section className="section">
@@ -68,7 +99,12 @@ function Profile() {
           return (
             <div key={tag.id}>
               <span className="tag is-link is-large mb-3">
-                {tag.name} <button className="delete"></button>
+                {tag.name}{" "}
+                <button
+                  className="delete"
+                  data-tag-id={tag.id}
+                  onClick={deleteTag}
+                ></button>
               </span>
             </div>
           );
