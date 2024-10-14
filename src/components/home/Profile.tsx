@@ -90,9 +90,34 @@ function Profile() {
 
   return (
     <div className="body-center-content">
-      <section className="section">
+      <section className="section has-text-dark">
         <h1 className="title has-text-dark">User Profile</h1>
+        <div className="columns">
+          <div className="column is-two-fifths">
+            <h5 className="is-size-5">
+              <span className="has-text-weight-bold">Username:</span>{" "}
+              {user?.username}
+            </h5>
+            <h5 className="is-size-5">
+              <span className="has-text-weight-bold">Email:</span> {user?.email}
+            </h5>
+            <h5 className="is-size-5">
+              <span className="has-text-weight-bold">First Name:</span>{" "}
+              {user?.first_name}
+            </h5>
+            <h5 className="is-size-5">
+              <span className="has-text-weight-bold">Last Name:</span>{" "}
+              {user?.last_name}
+            </h5>
+          </div>
+          <div className="column">
+            <figure className="image is-128x128">
+              <img src={user?.profile_img} />
+            </figure>
+          </div>
+        </div>
       </section>
+      <hr />
       <section className="section">
         <h1 className="title has-text-dark">Tags</h1>
         {user?.tags.map((tag) => {
