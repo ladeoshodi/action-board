@@ -1,3 +1,4 @@
+import { ITag } from "./tag";
 import { ITask } from "./task";
 import { ITaskList } from "./tasklist";
 
@@ -12,4 +13,5 @@ export interface IUser {
   updated_at: string;
   lists: ITaskList[];
   tasks: ITask[];
+  tags: ITag[];
 }

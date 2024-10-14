@@ -16,11 +16,12 @@ interface IinitialFormData {
   name: string;
   description: string;
   due_date?: string;
+  tags?: string[];
 }
 
 const EditTaskForm = forwardRef<HTMLDivElement, EditTaskFormProp>(
   function EditTaskForm({ closeEditForm, task }, ref) {
-    const { setIsUserRefresh } = useOutletContext<IOutletContext>();
+    const { user, setIsUserRefresh } = useOutletContext<IOutletContext>();
 
     const formatDate = (dateString: string): string => {
       const date = new Date(dateString);
@@ -36,6 +37,7 @@ const EditTaskForm = forwardRef<HTMLDivElement, EditTaskFormProp>(
       name: task.name,
       description: task.description || "",
       due_date: task.due_date ? formatDate(task.due_date) : "",
+      tags: task.tags.map((tag) => String(tag.id)),
     };
 
     const [formData, setFormData] = useState(initialFormData);
@@ -75,12 +77,28 @@ const EditTaskForm = forwardRef<HTMLDivElement, EditTaskFormProp>(
     }
 
     function handleInputChange(
-      e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+      e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
     ) {
       const target = e.target;
+      const name = target.name;
+      let value: string | string[];
+      if (target instanceof HTMLSelectElement && target.multiple) {
+        value = Array.from(target.selectedOptions, (option) => option.value);
+      } else {
+        value = target.value;
+      }
+
       const newFormData = {
         ...formData,
-        [target.name]: target.value,
+        [name]: value,
+      };
+      setFormData(newFormData);
+    }
+
+    function clearTags() {
+      const newFormData = {
+        ...formData,
+        tags: [],
       };
       setFormData(newFormData);
     }
@@ -152,6 +170,43 @@ const EditTaskForm = forwardRef<HTMLDivElement, EditTaskFormProp>(
                       onChange={handleInputChange}
                     />
                   </div>
+                </div>
+                <div className="field">
+                  <label htmlFor="tags" className="label has-text-grey-dark">
+                    Update Tags{" "}
+                    <div className="icon is-small is-left">
+                      <i className="fas fa-tag"></i>
+                    </div>
+                  </label>
+                  <div className="control">
+                    <div className="select is-multiple">
+                      <select
+                        id="tags"
+                        multiple={true}
+                        name="tags"
+                        value={formData.tags}
+                        onChange={handleInputChange}
+                      >
+                        <option value="" disabled>
+                          --Add or remove tags--
+                        </option>
+                        {user?.tags.map((tag) => {
+                          return (
+                            <option key={tag.id} value={tag.id}>
+                              {tag.name}
+                            </option>
+                          );
+                        })}
+                      </select>
+                    </div>
+                  </div>
+                  <button
+                    className="button mt-3"
+                    type="button"
+                    onClick={clearTags}
+                  >
+                    Clear Tags
+                  </button>
                 </div>
               </section>
               <footer className="modal-card-foot">
