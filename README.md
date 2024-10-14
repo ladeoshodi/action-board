@@ -50,7 +50,7 @@ This project communicates with a separate backend hosted on heroku for data mani
 1. Clone the repository:
 
    ```sh
-   git clone https://github.com/yourusername/action-board.git
+   git clone https://github.com/ladeoshodi/action-board.git
    cd action-board
    ```
 
