@@ -30,9 +30,9 @@ function TaskList({ list, activeCard, setActiveCard }: TaskListProp) {
       // sort by due date
       if (task1.due_date > task2.due_date) return 1;
       if (task1.due_date < task2.due_date) return -1;
-      // sort - put no due dates below
-      if (!task1.due_date) return 1;
-      if (!task2.due_date) return -1;
+      // sort by recently created
+      if (task1.created_at > task2.created_at) return -1;
+      if (task1.created_at < task2.created_at) return 1;
       return 0;
     });
 
