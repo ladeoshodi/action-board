@@ -48,6 +48,13 @@ function NavBar({ user }: NavBarProps) {
           <div className="navbar-item has-dropdown is-hoverable">
             <a className="navbar-link">Welcome {user?.username}</a>
             <div className="navbar-dropdown">
+              <Link to="/home" className="navbar-item">
+                View Task Board
+              </Link>
+              <Link to="/profile" className="navbar-item">
+                Profile
+              </Link>
+              <hr className="navbar-divider" />
               <Link to="#" className="navbar-item" onClick={handleLogOut}>
                 Logout
               </Link>

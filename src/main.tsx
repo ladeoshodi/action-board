@@ -5,6 +5,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import App from "./App.tsx";
 import LandingPage from "./components/landing-page/LandingPage.tsx";
 import Board from "./components/board/Board.tsx";
+import Profile from "./components/home/Profile.tsx";
 
 import "./index.css";
 
@@ -16,7 +17,10 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
-    children: [{ path: "home", element: <Board /> }],
+    children: [
+      { path: "home", element: <Board /> },
+      { path: "profile", element: <Profile /> },
+    ],
   },
 ]);
 
