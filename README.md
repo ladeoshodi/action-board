@@ -31,19 +31,19 @@ This project communicates with a separate backend hosted on heroku for data mani
 
 ## Features
 
-- User authentication
-  ![Action Board Login](readme-assets/actionboard-login.gif) <br>
+- User authentication <br>
+  ![Action Board Login](readme-assets/actionboard-login.gif)
 
 - Task creation and editing
   ![Action Board Task List](readme-assets/actionboard-createtasklist.gif) <br>
 
-  ![Action Board Task](readme-assets/actionboard-createtask.gif) <br>
+  ![Action Board Task](readme-assets/actionboard-createtask.gif)
 
-- Drag-and-drop task management
-  ![Action Board Task](readme-assets/actionboard-dnd.gif) <br>
+- Drag-and-drop task management <br>
+  ![Action Board Task](readme-assets/actionboard-dnd.gif)
 
-- Tags Management
-  ![Action Board Task](readme-assets/actionboard-tags.gif) <br>
+- Tags Management <br>
+  ![Action Board Task](readme-assets/actionboard-tags.gif)
 
 ## Installation
 
