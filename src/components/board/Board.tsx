@@ -11,7 +11,7 @@ function Board() {
 
   const gridStyle = {
     display: "grid",
-    gridTemplateColumns: `repeat(${(user?.lists.length ?? 0) + 1}, 1fr)`,
+    gridTemplateColumns: `repeat(${user?.lists.length}, 1fr)`,
     gap: "10px",
   };
 
