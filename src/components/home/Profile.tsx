@@ -112,7 +112,12 @@ function Profile() {
           </div>
           <div className="column">
             <figure className="image is-128x128">
-              <img src={user?.profile_img} />
+              <img
+                src={
+                  user?.profile_img ??
+                  "https://bulma.io/assets/images/placeholders/128x128.png"
+                }
+              />
             </figure>
           </div>
         </div>
