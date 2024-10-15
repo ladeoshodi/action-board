@@ -34,7 +34,7 @@ This project communicates with a separate backend hosted on heroku for data mani
 - User authentication <br>
   ![Action Board Login](readme-assets/actionboard-login.gif)
 
-- Task creation and editing
+- Task creation and editing <br>
   ![Action Board Task List](readme-assets/actionboard-createtasklist.gif) <br>
 
   ![Action Board Task](readme-assets/actionboard-createtask.gif)
