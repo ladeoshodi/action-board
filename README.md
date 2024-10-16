@@ -22,6 +22,13 @@ This project communicates with a separate backend hosted on heroku for data mani
 
 [Play with the live project here](https://action-board.netlify.app)
 
+Demo user login
+
+```
+username: demouser@example.com
+password: demouser
+```
+
 ## Technologies
 
 - ReactJS
