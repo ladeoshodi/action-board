@@ -58,6 +58,7 @@ function Register({ setShowLogin }: RegisterProps) {
     <section className="section">
       <p className="title has-text-grey-dark is-size-5">Register</p>
       <form
+        aria-label="register-form"
         className="box ps-form"
         onSubmit={(e) => {
           void handleRegistration(e);

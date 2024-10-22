@@ -62,6 +62,7 @@ function Login({ setShowLogin }: LoginProps) {
     <section className="section">
       <p className="title has-text-grey-dark is-size-5">Login</p>
       <form
+        aria-label="login-form"
         className="box ps-form"
         onSubmit={(e) => {
           void handleLogin(e);
