@@ -1,7 +1,7 @@
+import { afterEach, describe, expect, it, vi, Mock } from "vitest";
 import { fireEvent, render, screen } from "@testing-library/react";
-import { MemoryRouter } from "react-router-dom";
+import { MemoryRouter, useNavigate } from "react-router-dom";
 import "@testing-library/jest-dom";
-import jest from "jest-mock";
 
 import LandingPage from "../components/landing-page/LandingPage";
 
@@ -14,7 +14,7 @@ const renderComponent = () => {
 };
 
 describe("RegisterForm Component", () => {
-  const handleRegistrationMock = jest.fn();
+  const handleRegistrationMock = vi.fn();
   it("renders registration form", () => {
     renderComponent();
     fireEvent.click(
@@ -86,7 +86,7 @@ describe("RegisterForm Component", () => {
 });
 
 describe("LoginForm Component", () => {
-  const handleLoginMock = jest.fn();
+  const handleLoginMock = vi.fn();
   it("renders login form", () => {
     renderComponent();
     expect(screen.getAllByText("Login")).toBeTruthy();
@@ -120,5 +120,32 @@ describe("LoginForm Component", () => {
     fireEvent.click(screen.getByRole("button", { name: "Login" }));
 
     expect(handleLoginMock).toHaveBeenCalled();
+  });
+});
+
+describe("LandingPage Component", () => {
+  beforeAll(() => {
+    vi.mock("react-router-dom", async () => ({
+      ...(await vi.importActual("react-router-dom")),
+      useNavigate: vi.fn(),
+    }));
+  });
+
+  afterEach(() => {
+    vi.restoreAllMocks();
+  });
+
+  it("Redirects logged in users", () => {
+    const getItemMock = vi
+      .spyOn(Storage.prototype, "getItem")
+      .mockReturnValue("faketoken");
+
+    const useNavigateMock = useNavigate as Mock;
+    useNavigateMock.mockReturnValue(() => {});
+
+    renderComponent();
+
+    expect(getItemMock).toHaveBeenCalled();
+    expect(useNavigateMock).toHaveBeenCalled();
   });
 });
