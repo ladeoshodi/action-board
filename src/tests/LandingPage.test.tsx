@@ -1,7 +1,6 @@
 import { afterEach, describe, expect, it, vi, Mock } from "vitest";
 import { fireEvent, render, screen } from "@testing-library/react";
 import { MemoryRouter, useNavigate } from "react-router-dom";
-import "@testing-library/jest-dom";
 
 import LandingPage from "../components/landing-page/LandingPage";
 
@@ -13,7 +12,7 @@ const renderComponent = () => {
   );
 };
 
-describe("RegisterForm Component", () => {
+describe("RegisterForm", () => {
   const handleRegistrationMock = vi.fn();
   it("renders registration form", () => {
     renderComponent();
@@ -85,7 +84,7 @@ describe("RegisterForm Component", () => {
   });
 });
 
-describe("LoginForm Component", () => {
+describe("LoginForm", () => {
   const handleLoginMock = vi.fn();
   it("renders login form", () => {
     renderComponent();
@@ -125,10 +124,13 @@ describe("LoginForm Component", () => {
 
 describe("LandingPage Component", () => {
   beforeAll(() => {
-    vi.mock("react-router-dom", async () => ({
-      ...(await vi.importActual("react-router-dom")),
-      useNavigate: vi.fn(),
-    }));
+    vi.mock("react-router-dom", async () => {
+      const actual = await vi.importActual("react-router-dom");
+      return {
+        ...actual,
+        useNavigate: vi.fn(),
+      };
+    });
   });
 
   afterEach(() => {

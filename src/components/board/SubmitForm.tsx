@@ -81,7 +81,12 @@ const SubmitForm = forwardRef<HTMLFormElement, SubmitFormProp>(
       }
     }
     return (
-      <form onSubmit={handleSubmit} className="hidden" ref={ref}>
+      <form
+        onSubmit={handleSubmit}
+        aria-label="submit-form"
+        className="hidden"
+        ref={ref}
+      >
         <div className="field">
           <div className="control">
             <input

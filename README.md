@@ -79,9 +79,16 @@ password: demouser
    VITE_APP_URL=/api
    ```
 
-5. Start the development server:
+5. Start the development server
+
    ```sh
    npm run dev
+   ```
+
+6. Run Tests
+
+   ```sh
+   npm run test
    ```
 
 ## Usage
