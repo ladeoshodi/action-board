@@ -2,23 +2,30 @@
 
 # Action Board
 
-GA SEI: Project 4
+##### Task Management Board
 
 ## Table of Contents
 
-- [Introduction](#introduction)
+- [Overview](#overview)
+  - [Introduction](#introduction)
+  - [Live Project](#live-project)
+  - [Technologies](#technologies)
 - [Features](#features)
 - [Installation](#installation)
 - [Usage](#usage)
 - [Future Improvements](#future-improvements)
 
-## Introduction
+## Overview
 
-Action Board is a task management board designed to help individuals organize tasks, track progress, and work more effectively. This project was developed as part of General Assembly's Software Engineering Immersive (SEI) program.
+### Introduction
 
-This project communicates with a separate backend hosted on heroku for data manipulation and storage. _You can find the [backend deployment here](https://github.com/ladeoshodi/action-board-api)_
+Action Board is a task management board designed to help individuals organize tasks, track progress, and work more effectively. This project was developed as part of General Assembly's Software Engineering Immersive (SEI) program. <br>
 
-## Live Project
+This project communicates with a separate backend hosted on heroku for data manipulation and storage. <br>
+
+You can find the [backend deployment here](https://github.com/ladeoshodi/action-board-api)
+
+### Live Project
 
 [Play with the live project here](https://action-board.netlify.app)
 
@@ -29,21 +36,23 @@ username: demouser@example.com
 password: demouser
 ```
 
-## Technologies
+### Technologies
 
-- ReactJS
-- TypeScript
-- BulmaCSS
-- Vite
+- ![Static Badge](https://img.shields.io/badge/React-black?logo=react)
+- ![Static Badge](https://img.shields.io/badge/TypeScript-black?logo=typescript)
+- ![Static Badge](https://img.shields.io/badge/BulmaCSS-black?logo=bulma)
+- ![Static Badge](https://img.shields.io/badge/Vite-black?logo=vite)
+- ![Static Badge](https://img.shields.io/badge/Vitest-black?logo=vitest)
 
 ## Features
 
-- User authentication <br>
+- User Registration / Login <br>
   ![Action Board Login](readme-assets/actionboard-login.gif)
 
-- Task creation and editing <br>
-  ![Action Board Task List](readme-assets/actionboard-createtasklist.gif) <br>
+- Task creation <br>
+  ![Action Board Task List](readme-assets/actionboard-createtasklist.gif)
 
+- Task Editing <br>
   ![Action Board Task](readme-assets/actionboard-createtask.gif)
 
 - Drag-and-drop task management <br>
