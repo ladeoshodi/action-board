@@ -37,6 +37,8 @@ function App() {
             pauseOnHover: true,
           });
         }
+        // delete token if error in getting user
+        localStorage.removeItem("token");
         // navigate back to landing page if error in getting user
         navigate("/");
       }
