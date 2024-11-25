@@ -14,7 +14,7 @@ interface TaskProps {
 }
 
 function TaskCard({ task, setActiveCard }: TaskProps) {
-  const { setIsUserRefresh } = useOutletContext<IOutletContext>();
+  const { setShouldRefreshUser } = useOutletContext<IOutletContext>();
   const editTaskFormRef = useRef<HTMLDivElement>(null);
 
   async function markTaskAsDone() {
@@ -30,7 +30,7 @@ function TaskCard({ task, setActiveCard }: TaskProps) {
         }
       );
 
-      setIsUserRefresh(true);
+      setShouldRefreshUser(true);
       toast({
         message: `${response.data.name} completed`,
         type: "is-success",
@@ -59,7 +59,7 @@ function TaskCard({ task, setActiveCard }: TaskProps) {
         headers: { Authorization: `Bearer ${token}` },
       });
 
-      setIsUserRefresh(true);
+      setShouldRefreshUser(true);
       toast({
         message: `Task deleted`,
         type: "is-success",

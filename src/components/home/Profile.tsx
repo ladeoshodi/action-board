@@ -8,7 +8,7 @@ import { toast } from "bulma-toast";
 import { getAxiosErrorMessage } from "../../utils/utils";
 
 function Profile() {
-  const { user, setIsUserRefresh } = useOutletContext<IOutletContext>();
+  const { user, setShouldRefreshUser } = useOutletContext<IOutletContext>();
   const initialFormData = {
     name: "",
   };
@@ -36,7 +36,7 @@ function Profile() {
         headers: { Authorization: `Bearer ${token}` },
       });
 
-      setIsUserRefresh(true);
+      setShouldRefreshUser(true);
       setFormData(initialFormData);
       toast({
         message: `${response.data.name} created`,
@@ -68,7 +68,7 @@ function Profile() {
         headers: { Authorization: `Bearer ${token}` },
       });
 
-      setIsUserRefresh(true);
+      setShouldRefreshUser(true);
       toast({
         message: `Tag deleted`,
         type: "is-success",

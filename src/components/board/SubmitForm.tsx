@@ -23,7 +23,7 @@ const SubmitForm = forwardRef<HTMLFormElement, SubmitFormProp>(
     const initialFormData = {
       name: "",
     };
-    const { user, setIsUserRefresh } = useOutletContext<IOutletContext>();
+    const { user, setShouldRefreshUser } = useOutletContext<IOutletContext>();
     const [formData, setFormData] = useState(initialFormData);
 
     function handleInputChange(e: ChangeEvent<HTMLInputElement>) {
@@ -60,7 +60,7 @@ const SubmitForm = forwardRef<HTMLFormElement, SubmitFormProp>(
           });
         }
 
-        setIsUserRefresh(true);
+        setShouldRefreshUser(true);
         setFormData(initialFormData);
         toast({
           message: `${response.data.name} created`,

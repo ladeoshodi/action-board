@@ -21,7 +21,7 @@ interface IinitialFormData {
 
 const EditTaskForm = forwardRef<HTMLDivElement, EditTaskFormProp>(
   function EditTaskForm({ closeEditForm, task }, ref) {
-    const { user, setIsUserRefresh } = useOutletContext<IOutletContext>();
+    const { user, setShouldRefreshUser } = useOutletContext<IOutletContext>();
 
     const formatDate = (dateString: string): string => {
       const date = new Date(dateString);
@@ -56,7 +56,7 @@ const EditTaskForm = forwardRef<HTMLDivElement, EditTaskFormProp>(
         });
 
         closeEditForm();
-        setIsUserRefresh(true);
+        setShouldRefreshUser(true);
         toast({
           message: "Update successful",
           type: "is-success",

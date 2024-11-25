@@ -18,7 +18,7 @@ interface TaskListProp {
 }
 
 function TaskList({ list, activeCard, setActiveCard }: TaskListProp) {
-  const { user, setIsUserRefresh } = useOutletContext<IOutletContext>();
+  const { user, setShouldRefreshUser } = useOutletContext<IOutletContext>();
   const formRef = useRef<HTMLFormElement>(null);
 
   const tasks = user?.tasks
@@ -47,7 +47,7 @@ function TaskList({ list, activeCard, setActiveCard }: TaskListProp) {
       await axios.delete(URL, {
         headers: { Authorization: `Bearer ${token}` },
       });
-      setIsUserRefresh(true);
+      setShouldRefreshUser(true);
       toast({
         message: `Task List deleted`,
         type: "is-success",
@@ -80,7 +80,7 @@ function TaskList({ list, activeCard, setActiveCard }: TaskListProp) {
         }
       );
 
-      setIsUserRefresh(true);
+      setShouldRefreshUser(true);
       toast({
         message: `${response.data.name} moved successfully`,
         type: "is-success",

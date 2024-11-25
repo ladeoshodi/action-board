@@ -13,7 +13,7 @@ import "./styles/Home.css";
 
 function App() {
   const [user, setUser] = useState<IUser | null>(null);
-  const [isUserRefresh, setIsUserRefresh] = useState(false);
+  const [shouldRefreshUser, setShouldRefreshUser] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -26,7 +26,7 @@ function App() {
           headers: { Authorization: `Bearer ${token}` },
         });
         setUser(response.data);
-        setIsUserRefresh(false);
+        setShouldRefreshUser(false);
       } catch (e) {
         if (e instanceof AxiosError) {
           const message = getAxiosErrorMessage(e);
@@ -49,12 +49,12 @@ function App() {
       // navigate back to landing page if no token
       navigate("/");
     }
-  }, [navigate, isUserRefresh]);
+  }, [navigate, shouldRefreshUser]);
 
   return (
     <>
       <NavBar user={user} />
-      <Outlet context={{ user, setIsUserRefresh }} />
+      <Outlet context={{ user, setShouldRefreshUser: setShouldRefreshUser }} />
     </>
   );
 }
